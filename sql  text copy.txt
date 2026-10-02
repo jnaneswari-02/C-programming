@@ -1,0 +1,973 @@
+Connected.
+SQL> create table sailors (sid int, sname varchar(10),rating , age real,primary key(sid));
+create table sailors (sid int, sname varchar(10),rating , age real,primary key(sid))
+                                                 *
+ERROR at line 1:
+ORA-02263: need to specify the datatype for this column
+
+
+SQL> create table sailors (sid int, sname varchar(10),rating int, age real,primary key(sid));
+
+Table created.
+
+SQL> create table boats (bid int, bname varchar(22), colour varchar(6),primary key(bid));
+
+Table created.
+
+SQL> create table reserves(sid int ,bid int, day date , primary key(sid,bid,day),foreign key(sid) references sailors,foreign key
+  2  create table reserves(sid int ,bid int, day date , primary key(sid,bid,day),foreign key(sid) references sailors,foreign key(bid) references boats);
+create table reserves(sid int ,bid int, day date , primary key(sid,bid,day),foreign key(sid) references sailors,foreign key(bid) references boats)
+*
+ERROR at line 2:
+ORA-00906: missing left parenthesis
+
+
+SQL> create table reserves(sid int ,bid int, day date , primary key(sid,bid,day),foreign key(sid) references sailors,foreign key(bid) references boats);
+
+Table created.
+
+SQL> desc sailors
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(38)
+ SNAME                                              VARCHAR2(10)
+ RATING                                             NUMBER(38)
+ AGE                                                FLOAT(63)
+
+SQL> desc boats
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BID                                       NOT NULL NUMBER(38)
+ BNAME                                              VARCHAR2(22)
+ COLOUR                                             VARCHAR2(6)
+
+SQL> desc reserves
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(38)
+ BID                                       NOT NULL NUMBER(38)
+ DAY                                       NOT NULL DATE
+
+SQL> insert into sailors values(&sid,'&sname',&rating,&age);
+Enter value for sid: 22
+Enter value for sname: Dustin
+Enter value for rating: 7
+Enter value for age: 45.0
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(22,'Dustin',7,45.0)
+
+1 row created.
+
+SQL> /
+Enter value for sid: Brutus
+Enter value for sname:
+Enter value for rating:
+Enter value for age:
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(Brutus,'',,)
+insert into sailors values(Brutus,'',,)
+                                     *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> /
+Enter value for sid: 29
+Enter value for sname: Brutus
+Enter value for rating: 1
+Enter value for age: 33.0
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(29,'Brutus',1,33.0)
+
+1 row created.
+
+SQL> 31
+SP2-0226: Invalid line number
+SQL> /
+Enter value for sid: 31
+Enter value for sname: lubber
+Enter value for rating: 8
+Enter value for age: 55.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(31,'lubber',8,55.5)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 32
+Enter value for sname: Andy
+Enter value for rating: 8
+Enter value for age: 25.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(32,'Andy',8,25.5)
+
+1 row created.
+
+SQL> /
+Enter value for sid: Rusty
+Enter value for sname:
+Enter value for rating:
+Enter value for age:
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(Rusty,'',,)
+insert into sailors values(Rusty,'',,)
+                                    *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> /
+Enter value for sid: 58
+Enter value for sname: Rusty
+Enter value for rating: 10
+Enter value for age: 35.0
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(58,'Rusty',10,35.0)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 64
+Enter value for sname: Horatio
+Enter value for rating: 7
+Enter value for age: 35.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(64,'Horatio',7,35.5)
+
+1 row created.
+
+SQL> Zorba
+SP2-0042: unknown command "Zorba" - rest of line ignored.
+SQL>
+SQL>
+SQL> /
+Enter value for sid: 71
+Enter value for sname: Zorba
+Enter value for rating: 10
+Enter value for age: 16.0
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(71,'Zorba',10,16.0)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 74
+Enter value for sname: Horatio
+Enter value for rating: 9
+Enter value for age: 35.0
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(74,'Horatio',9,35.0)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 85
+Enter value for sname: Art
+Enter value for rating: 3
+Enter value for age: 25.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(85,'Art',3,25.5)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 95
+Enter value for sname: Bob
+Enter value for rating: 3
+Enter value for age: 63.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(95,'Bob',3,63.5)
+
+1 row created.
+
+SQL>  insert into boats values(&bid,'&bname,'&colour');
+Enter value for bid: 101
+Enter value for bname: interlake
+Enter value for colour: blue
+old   1:  insert into boats values(&bid,'&bname,'&colour')
+new   1:  insert into boats values(101,'interlake,'blue')
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL>  insert into boats values(&bid,'&bname','&colour');
+Enter value for bid: 101
+Enter value for bname: interlake
+Enter value for colour: blue
+old   1:  insert into boats values(&bid,'&bname','&colour')
+new   1:  insert into boats values(101,'interlake','blue')
+
+1 row created.
+
+SQL> /
+Enter value for bid: 102
+Enter value for bname: interlake
+Enter value for colour: red
+old   1:  insert into boats values(&bid,'&bname','&colour')
+new   1:  insert into boats values(102,'interlake','red')
+
+1 row created.
+
+SQL> /
+Enter value for bid: clipper
+Enter value for bname: green
+Enter value for colour:
+old   1:  insert into boats values(&bid,'&bname','&colour')
+new   1:  insert into boats values(clipper,'green','')
+ insert into boats values(clipper,'green','')
+                          *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> /
+Enter value for bid: 103
+Enter value for bname: clipper
+Enter value for colour: green
+old   1:  insert into boats values(&bid,'&bname','&colour')
+new   1:  insert into boats values(103,'clipper','green')
+
+1 row created.
+
+SQL> /
+Enter value for bid: 104
+Enter value for bname: marine
+Enter value for colour: red
+old   1:  insert into boats values(&bid,'&bname','&colour')
+new   1:  insert into boats values(104,'marine','red')
+
+1 row created.
+
+SQL>  insert into reserves values(&sid,&bid,'&day');
+Enter value for sid: 22
+Enter value for bid: 102
+Enter value for day: 10-oct-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(22,102,'10-oct-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 22
+Enter value for bid: 101
+Enter value for day: 10-oct-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(22 ,101,'10-oct-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 22
+Enter value for bid: 103
+Enter value for day: 10-sept-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(22,103,'10-sept-98')
+ insert into reserves values(22,103,'10-sept-98')
+                                    *
+ERROR at line 1:
+ORA-01841: (full) year must be between -4713 and +9999, and not be 0
+
+
+SQL> /
+Enter value for sid: 22
+Enter value for bid: 103
+Enter value for day: 10-sep-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(22,103,'10-sep-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 22
+Enter value for bid: 104
+Enter value for day: 10-jul-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(22,104,'10-jul-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 31
+Enter value for bid: 102
+Enter value for day: 10-jul-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(31,102,'10-jul-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 31
+Enter value for bid: 103
+Enter value for day: 11-oct-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(31,103,'11-oct-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 31
+Enter value for bid: 104
+Enter value for day: 11-jun-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(31,104,'11-jun-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 64
+Enter value for bid: 101
+Enter value for day: 9-may-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(64,101,'9-may-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 64
+Enter value for bid: 102
+Enter value for day: 9-sep-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(64,102,'9-sep-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 74
+Enter value for bid: 103
+Enter value for day: 9-sep-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(74,103,'9-sep-98')
+
+1 row created.
+
+SQL> select * from sailors;
+
+       SID SNAME          RATING        AGE
+---------- ---------- ---------- ----------
+        22 Dustin              7         45
+        29 Brutus              1         33
+        31 lubber              8       55.5
+        32 Andy                8       25.5
+        58 Rusty              10         35
+        64 Horatio             7       35.5
+        71 Zorba              10         16
+        74 Horatio             9         35
+        85 Art                 3       25.5
+        95 Bob                 3       63.5
+
+10 rows selected.
+
+SQL> select * from boats
+  2  select * from boats;
+select * from boats
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select * from boats;
+
+       BID BNAME                  COLOUR
+---------- ---------------------- ------
+       101 interlake              blue
+       102 interlake              red
+       103 clipper                green
+       104 marine                 red
+
+SQL> select * from reserves;
+
+       SID        BID DAY
+---------- ---------- ---------
+        22        102 10-OCT-98
+        22        101 10-OCT-98
+        22        103 10-SEP-98
+        22        104 10-JUL-98
+        31        102 10-JUL-98
+        31        103 11-OCT-98
+        31        104 11-JUN-98
+        64        101 09-MAY-98
+        64        102 09-SEP-98
+        74        103 09-SEP-98
+
+10 rows selected.
+
+SQL> select sname from sailors;
+
+SNAME
+----------
+Dustin
+Brutus
+lubber
+Andy
+Rusty
+Horatio
+Zorba
+Horatio
+Art
+Bob
+
+10 rows selected.
+
+SQL> select sid from sailors;
+
+       SID
+----------
+        22
+        29
+        31
+        32
+        58
+        64
+        71
+        74
+        85
+        95
+
+10 rows selected.
+
+SQL> select rating from sailors;
+
+    RATING
+----------
+         7
+         1
+         8
+         8
+        10
+         7
+        10
+         9
+         3
+         3
+
+10 rows selected.
+
+SQL>  select distinct(rating) from sailors;
+
+    RATING
+----------
+         1
+         8
+         7
+         3
+        10
+         9
+
+6 rows selected.
+
+SQL> select sid from sailors where rating >7;
+
+       SID
+----------
+        31
+        32
+        58
+        71
+        74
+
+SQL> select s.name from sailors s,reserves r where s.sid=r.sid and r.sid=103;
+select s.name from sailors s,reserves r where s.sid=r.sid and r.sid=103
+       *
+ERROR at line 1:
+ORA-00904: "S"."NAME": invalid identifier
+
+
+SQL> select sname from sailors s,reserves r where s.sid=r.sid and r.sid=103;
+
+no rows selected
+
+SQL> select sid from reserves where bid=103;
+
+       SID
+----------
+        22
+        31
+        74
+
+SQL>Connected.
+SQL> create table sailors (sid int, sname varchar(10),rating , age real,primary key(sid));
+create table sailors (sid int, sname varchar(10),rating , age real,primary key(sid))
+                                                 *
+ERROR at line 1:
+ORA-02263: need to specify the datatype for this column
+
+
+SQL> create table sailors (sid int, sname varchar(10),rating int, age real,primary key(sid));
+
+Table created.
+
+SQL> create table boats (bid int, bname varchar(22), colour varchar(6),primary key(bid));
+
+Table created.
+
+SQL> create table reserves(sid int ,bid int, day date , primary key(sid,bid,day),foreign key(sid) references sailors,foreign key
+  2  create table reserves(sid int ,bid int, day date , primary key(sid,bid,day),foreign key(sid) references sailors,foreign key(bid) references boats);
+create table reserves(sid int ,bid int, day date , primary key(sid,bid,day),foreign key(sid) references sailors,foreign key(bid) references boats)
+*
+ERROR at line 2:
+ORA-00906: missing left parenthesis
+
+
+SQL> create table reserves(sid int ,bid int, day date , primary key(sid,bid,day),foreign key(sid) references sailors,foreign key(bid) references boats);
+
+Table created.
+
+SQL> desc sailors
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(38)
+ SNAME                                              VARCHAR2(10)
+ RATING                                             NUMBER(38)
+ AGE                                                FLOAT(63)
+
+SQL> desc boats
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BID                                       NOT NULL NUMBER(38)
+ BNAME                                              VARCHAR2(22)
+ COLOUR                                             VARCHAR2(6)
+
+SQL> desc reserves
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(38)
+ BID                                       NOT NULL NUMBER(38)
+ DAY                                       NOT NULL DATE
+
+SQL> insert into sailors values(&sid,'&sname',&rating,&age);
+Enter value for sid: 22
+Enter value for sname: Dustin
+Enter value for rating: 7
+Enter value for age: 45.0
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(22,'Dustin',7,45.0)
+
+1 row created.
+
+SQL> /
+Enter value for sid: Brutus
+Enter value for sname:
+Enter value for rating:
+Enter value for age:
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(Brutus,'',,)
+insert into sailors values(Brutus,'',,)
+                                     *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> /
+Enter value for sid: 29
+Enter value for sname: Brutus
+Enter value for rating: 1
+Enter value for age: 33.0
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(29,'Brutus',1,33.0)
+
+1 row created.
+
+SQL> 31
+SP2-0226: Invalid line number
+SQL> /
+Enter value for sid: 31
+Enter value for sname: lubber
+Enter value for rating: 8
+Enter value for age: 55.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(31,'lubber',8,55.5)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 32
+Enter value for sname: Andy
+Enter value for rating: 8
+Enter value for age: 25.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(32,'Andy',8,25.5)
+
+1 row created.
+
+SQL> /
+Enter value for sid: Rusty
+Enter value for sname:
+Enter value for rating:
+Enter value for age:
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(Rusty,'',,)
+insert into sailors values(Rusty,'',,)
+                                    *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> /
+Enter value for sid: 58
+Enter value for sname: Rusty
+Enter value for rating: 10
+Enter value for age: 35.0
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(58,'Rusty',10,35.0)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 64
+Enter value for sname: Horatio
+Enter value for rating: 7
+Enter value for age: 35.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(64,'Horatio',7,35.5)
+
+1 row created.
+
+SQL> Zorba
+SP2-0042: unknown command "Zorba" - rest of line ignored.
+SQL>
+SQL>
+SQL> /
+Enter value for sid: 71
+Enter value for sname: Zorba
+Enter value for rating: 10
+Enter value for age: 16.0
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(71,'Zorba',10,16.0)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 74
+Enter value for sname: Horatio
+Enter value for rating: 9
+Enter value for age: 35.0
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(74,'Horatio',9,35.0)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 85
+Enter value for sname: Art
+Enter value for rating: 3
+Enter value for age: 25.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(85,'Art',3,25.5)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 95
+Enter value for sname: Bob
+Enter value for rating: 3
+Enter value for age: 63.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(95,'Bob',3,63.5)
+
+1 row created.
+
+SQL>  insert into boats values(&bid,'&bname,'&colour');
+Enter value for bid: 101
+Enter value for bname: interlake
+Enter value for colour: blue
+old   1:  insert into boats values(&bid,'&bname,'&colour')
+new   1:  insert into boats values(101,'interlake,'blue')
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL>  insert into boats values(&bid,'&bname','&colour');
+Enter value for bid: 101
+Enter value for bname: interlake
+Enter value for colour: blue
+old   1:  insert into boats values(&bid,'&bname','&colour')
+new   1:  insert into boats values(101,'interlake','blue')
+
+1 row created.
+
+SQL> /
+Enter value for bid: 102
+Enter value for bname: interlake
+Enter value for colour: red
+old   1:  insert into boats values(&bid,'&bname','&colour')
+new   1:  insert into boats values(102,'interlake','red')
+
+1 row created.
+
+SQL> /
+Enter value for bid: clipper
+Enter value for bname: green
+Enter value for colour:
+old   1:  insert into boats values(&bid,'&bname','&colour')
+new   1:  insert into boats values(clipper,'green','')
+ insert into boats values(clipper,'green','')
+                          *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> /
+Enter value for bid: 103
+Enter value for bname: clipper
+Enter value for colour: green
+old   1:  insert into boats values(&bid,'&bname','&colour')
+new   1:  insert into boats values(103,'clipper','green')
+
+1 row created.
+
+SQL> /
+Enter value for bid: 104
+Enter value for bname: marine
+Enter value for colour: red
+old   1:  insert into boats values(&bid,'&bname','&colour')
+new   1:  insert into boats values(104,'marine','red')
+
+1 row created.
+
+SQL>  insert into reserves values(&sid,&bid,'&day');
+Enter value for sid: 22
+Enter value for bid: 102
+Enter value for day: 10-oct-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(22,102,'10-oct-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 22
+Enter value for bid: 101
+Enter value for day: 10-oct-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(22 ,101,'10-oct-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 22
+Enter value for bid: 103
+Enter value for day: 10-sept-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(22,103,'10-sept-98')
+ insert into reserves values(22,103,'10-sept-98')
+                                    *
+ERROR at line 1:
+ORA-01841: (full) year must be between -4713 and +9999, and not be 0
+
+
+SQL> /
+Enter value for sid: 22
+Enter value for bid: 103
+Enter value for day: 10-sep-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(22,103,'10-sep-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 22
+Enter value for bid: 104
+Enter value for day: 10-jul-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(22,104,'10-jul-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 31
+Enter value for bid: 102
+Enter value for day: 10-jul-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(31,102,'10-jul-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 31
+Enter value for bid: 103
+Enter value for day: 11-oct-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(31,103,'11-oct-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 31
+Enter value for bid: 104
+Enter value for day: 11-jun-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(31,104,'11-jun-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 64
+Enter value for bid: 101
+Enter value for day: 9-may-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(64,101,'9-may-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 64
+Enter value for bid: 102
+Enter value for day: 9-sep-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(64,102,'9-sep-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 74
+Enter value for bid: 103
+Enter value for day: 9-sep-98
+old   1:  insert into reserves values(&sid,&bid,'&day')
+new   1:  insert into reserves values(74,103,'9-sep-98')
+
+1 row created.
+
+SQL> select * from sailors;
+
+       SID SNAME          RATING        AGE
+---------- ---------- ---------- ----------
+        22 Dustin              7         45
+        29 Brutus              1         33
+        31 lubber              8       55.5
+        32 Andy                8       25.5
+        58 Rusty              10         35
+        64 Horatio             7       35.5
+        71 Zorba              10         16
+        74 Horatio             9         35
+        85 Art                 3       25.5
+        95 Bob                 3       63.5
+
+10 rows selected.
+
+SQL> select * from boats
+  2  select * from boats;
+select * from boats
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select * from boats;
+
+       BID BNAME                  COLOUR
+---------- ---------------------- ------
+       101 interlake              blue
+       102 interlake              red
+       103 clipper                green
+       104 marine                 red
+
+SQL> select * from reserves;
+
+       SID        BID DAY
+---------- ---------- ---------
+        22        102 10-OCT-98
+        22        101 10-OCT-98
+        22        103 10-SEP-98
+        22        104 10-JUL-98
+        31        102 10-JUL-98
+        31        103 11-OCT-98
+        31        104 11-JUN-98
+        64        101 09-MAY-98
+        64        102 09-SEP-98
+        74        103 09-SEP-98
+
+10 rows selected.
+
+SQL> select sname from sailors;
+
+SNAME
+----------
+Dustin
+Brutus
+lubber
+Andy
+Rusty
+Horatio
+Zorba
+Horatio
+Art
+Bob
+
+10 rows selected.
+
+SQL> select sid from sailors;
+
+       SID
+----------
+        22
+        29
+        31
+        32
+        58
+        64
+        71
+        74
+        85
+        95
+
+10 rows selected.
+
+SQL> select rating from sailors;
+
+    RATING
+----------
+         7
+         1
+         8
+         8
+        10
+         7
+        10
+         9
+         3
+         3
+
+10 rows selected.
+
+SQL>  select distinct(rating) from sailors;
+
+    RATING
+----------
+         1
+         8
+         7
+         3
+        10
+         9
+
+6 rows selected.
+
+SQL> select sid from sailors where rating >7;
+
+       SID
+----------
+        31
+        32
+        58
+        71
+        74
+
+SQL> select s.name from sailors s,reserves r where s.sid=r.sid and r.sid=103;
+select s.name from sailors s,reserves r where s.sid=r.sid and r.sid=103
+       *
+ERROR at line 1:
+ORA-00904: "S"."NAME": invalid identifier
+
+
+SQL> select sname from sailors s,reserves r where s.sid=r.sid and r.sid=103;
+
+no rows selected
+
+SQL> select sid from reserves where bid=103;
+
+       SID
+----------
+        22
+        31
+        74
+
+SQL>
